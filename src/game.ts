@@ -1,19 +1,19 @@
 const vertical = ["up", "down"];
 
+export type Board = (number | null)[][];
+export type Direction = "up" | "right" | "down" | "left";
+
 export function move({
   winnerScore = 2048,
   board,
   direction,
 }: {
   winnerScore?: number;
-  board: (number | null)[][];
-  direction: "up" | "right" | "down" | "left";
+  board: Board;
+  direction: Direction;
 }) {
   let maxScore = 0;
-  const nextState = [...Array(board.length)].map(() => [
-    ...Array(board.length),
-  ]);
-
+  const nextState = [...Array(board.length)].map(() => Array(board.length));
   for (let index = 0; index < board.length; index++) {
     let line = [];
     for (let count = 0; count < board.length; count++) {
@@ -41,7 +41,11 @@ export function move({
       }
     }
 
-    const empty = new Array(Math.min(3, 3 - sum.length) + 1).fill(null);
+    const boardSize = board[0].length - 1;
+    const empty = new Array(
+      Math.min(boardSize, boardSize - sum.length) + 1
+    ).fill(null);
+
     const next = ["down", "right"].includes(direction)
       ? empty.concat(sum)
       : sum.concat(empty);
@@ -55,12 +59,29 @@ export function move({
     }
   }
 
-  // const hasEmptyValues = nextState.some((row) =>
-  //   row.some((item) => item === null)
-  // );
-
   return {
     board: nextState,
     isWinner: maxScore >= winnerScore,
   };
 }
+
+export function randomize(board: Board, times: number = 1) {
+  const hasEmptyValues = board.some((row) => row.some((item) => item === null));
+  if (!hasEmptyValues) {
+    return board;
+  }
+
+  let added = 0;
+  while (added !== times) {
+    const row = random(board.length);
+    const index = random(board.length);
+    if (board?.[row]?.[index] === null) {
+      board[row][index] = 2;
+      added++;
+    }
+  }
+
+  return board;
+}
+
+const random = (value: number) => Math.round(Math.random() * value);
