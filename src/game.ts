@@ -14,16 +14,22 @@ export function move({
 }) {
   let maxScore = 0;
   const nextState = [...Array(board.length)].map(() => Array(board.length));
+  const lines = [];
+  const prev = [];
   for (let index = 0; index < board.length; index++) {
     let line = [];
+    let foo = [];
     for (let count = 0; count < board.length; count++) {
       const next = vertical.includes(direction)
         ? board[count][index]
         : board[index][count];
+      foo.push(next);
       if (next !== null) {
         line.push(next);
       }
     }
+
+    prev.push(foo);
 
     const sum = [];
     const values: typeof board[0] = line.filter(Boolean);
@@ -50,6 +56,7 @@ export function move({
       ? empty.concat(sum)
       : sum.concat(empty);
 
+    lines.push(next);
     for (let count = 0; count < next.length; count++) {
       if (vertical.includes(direction)) {
         nextState[count][index] = next[count];
@@ -60,6 +67,8 @@ export function move({
   }
 
   return {
+    lines,
+    prev,
     board: nextState,
     isWinner: maxScore >= winnerScore,
   };

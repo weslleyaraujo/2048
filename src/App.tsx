@@ -1,13 +1,15 @@
-import { createStitches, createTheme, globalCss } from "@stitches/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { createStitches, globalCss } from "@stitches/react";
+import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
-import { randomize, move, Direction } from "./game";
+import { Direction, move, randomize } from "./game";
 
 const globalStyles = globalCss({
+  "@import":
+    "https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap",
   "html,body,#root": {
     margin: 0,
     padding: 0,
-    fontFamily: '"Clear Sans", "Helvetica Neue", Arial, sans-serifhtml, body',
+    fontFamily: '"Open Sans", "Helvetica Neue", Arial, sans-serifhtml, body',
   },
 });
 
@@ -36,6 +38,7 @@ const { styled } = createStitches({
 
 const Cell = styled(motion.div, {
   backgroundColor: "$backgroundAccent",
+  fontSize: 18,
   width: 50,
   height: 50,
   fontWeight: 700,
@@ -105,7 +108,7 @@ const Cell = styled(motion.div, {
   },
 });
 
-const Board = styled("div", {
+const Panel = styled("div", {
   display: "grid",
   backgroundColor: "$background",
   gridTemplateColumns: "1fr 1fr 1fr 1fr",
@@ -137,7 +140,7 @@ function App() {
   );
 
   useEffect(() => {
-    const listener = (event: HTMLElementEventMap["keydown"]) => {
+    const listener = async (event: HTMLElementEventMap["keydown"]) => {
       if (!Object.keys(DIRECTION).includes(event.key)) {
         return;
       }
@@ -145,8 +148,7 @@ function App() {
       const result = move({ board, direction: DIRECTION[event.key] });
 
       if (result.isWinner) {
-        alert("win");
-        return;
+        // Do something
       }
 
       setState(randomize(result.board, 1));
@@ -158,10 +160,11 @@ function App() {
 
   return (
     <Page>
-      <Board>
+      <Panel>
         {board.flat(1).map((item, index) => (
           <Cell
             key={`${item}-${index}`}
+            hasValue={Boolean(item)}
             {...(item === 2
               ? {
                   initial: { scale: 0 },
@@ -169,7 +172,6 @@ function App() {
                   transition: {},
                 }
               : {})}
-            hasValue={Boolean(item)}
             {...(item
               ? {
                   value: String(item) as React.ComponentProps<
@@ -181,7 +183,7 @@ function App() {
             {item}
           </Cell>
         ))}
-      </Board>
+      </Panel>
     </Page>
   );
 }
