@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://weslleyaraujo.github.io/2048/static/css/main.6dea0f05.chunk.css",
-    "main.js": "https://weslleyaraujo.github.io/2048/static/js/main.15572f5c.chunk.js",
-    "main.js.map": "https://weslleyaraujo.github.io/2048/static/js/main.15572f5c.chunk.js.map",
+    "main.js": "https://weslleyaraujo.github.io/2048/static/js/main.d4b717a8.chunk.js",
+    "main.js.map": "https://weslleyaraujo.github.io/2048/static/js/main.d4b717a8.chunk.js.map",
     "runtime-main.js": "https://weslleyaraujo.github.io/2048/static/js/runtime-main.de35574d.js",
     "runtime-main.js.map": "https://weslleyaraujo.github.io/2048/static/js/runtime-main.de35574d.js.map",
     "static/js/2.dcb9143d.chunk.js": "https://weslleyaraujo.github.io/2048/static/js/2.dcb9143d.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.de35574d.js",
     "static/js/2.dcb9143d.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.15572f5c.chunk.js"
+    "static/js/main.d4b717a8.chunk.js"
   ]
 }
