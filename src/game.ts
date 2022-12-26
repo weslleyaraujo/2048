@@ -70,8 +70,7 @@ export function move({
     lines,
     prev,
     board: nextState,
-    // isWinner: maxScore >= winnerScore,
-    isWinner: true,
+    isWinner: maxScore >= winnerScore,
   };
 }
 
